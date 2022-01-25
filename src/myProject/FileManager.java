@@ -1,6 +1,7 @@
 package myProject;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class FileManager {
     public static final String PATH="src/myProject/files/diccionario.txt";
@@ -9,16 +10,15 @@ public class FileManager {
     private FileWriter fileWriter;
     private BufferedWriter output;
 
-    public String lecturaFile(){
-        String texto="";
+    public ArrayList<String> lecturaFile(){
+        ArrayList<String> frases = new ArrayList<String>();
 
         try {
             fileReader=new FileReader(PATH);
             input = new BufferedReader(fileReader);
             String line = input.readLine();
             while(line != null){
-                texto+=line;
-                texto+="\n";
+                frases.add(line);
                 line = input.readLine();
             }
         } catch (FileNotFoundException e) {
@@ -34,7 +34,7 @@ public class FileManager {
         }
 
 
-        return texto;
+        return frases;
     }
     public void escribirFile(String line){
         try {
