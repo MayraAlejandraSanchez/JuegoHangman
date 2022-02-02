@@ -2,6 +2,8 @@ package myProject;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -11,6 +13,11 @@ import java.awt.*;
 public class GUIHangman extends JFrame {
 
     private Header headerProject;
+    private PanelFrase panelFrase;
+    private PanelHangman panelHangman;
+    private ControlHangman controlHangman;
+    private Escucha escucha;
+
 
     /**
      * Constructor of GUI class
@@ -20,7 +27,6 @@ public class GUIHangman extends JFrame {
 
         //Default JFrame configuration
         this.setTitle("Hangman app");
-        //this.setSize(200,100);
         this.pack();
         this.setResizable(true);
         this.setVisible(true);
@@ -35,10 +41,20 @@ public class GUIHangman extends JFrame {
     private void initGUI() {
         //Set up JFrame Container's Layout
         //Create Listener Object and Control Object
+        controlHangman = new ControlHangman();
+        escucha = new Escucha();
         //Set up JComponents
         headerProject = new Header("Usa el teclado para adivinar la palabra", Color.BLACK);
 
         this.add(headerProject,BorderLayout.NORTH); //Change this line if you change JFrame Container's Layout
+
+        panelFrase = new PanelFrase(controlHangman.PintarClaveFrase());
+        add(panelFrase, BorderLayout.WEST);
+
+        panelHangman = new PanelHangman();
+        add(panelHangman, BorderLayout.EAST);
+        this.addKeyListener(escucha);
+        setFocusable(true);
     }
 
     /**
@@ -55,7 +71,52 @@ public class GUIHangman extends JFrame {
     /**
      * inner class that extends an Adapter Class or implements Listeners used by GUI class
      */
-    private class Escucha {
+    private class Escucha extends KeyAdapter {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            super.keyTyped(e);
+            String clave = controlHangman.ValidarLetra(e.getKeyChar());
 
+            if (controlHangman.isFallo()){
+
+                panelHangman.drawBody(controlHangman.getConteoErrores());
+                panelFrase.pintarTextoError(clave, e.getKeyChar(),controlHangman.getConteoErrores());
+
+                if (controlHangman.getConteoErrores()==10){
+                    int option = JOptionPane.showConfirmDialog(panelFrase, "Perdiste :( ¿Deseas jugar otra ronda?",
+                            "Perdiste" ,JOptionPane.YES_NO_OPTION);
+
+                    if (option==JOptionPane.YES_OPTION){
+                        // nueva ronda
+                        panelFrase.reset(controlHangman.PintarClaveFrase());
+                        panelHangman.reset();
+                    }else{
+                        if (option==JOptionPane.NO_OPTION){
+                            // Salir
+                            System.exit(0);
+                        }
+                    }
+                }
+
+            }else{
+                panelFrase.setClave(controlHangman.getClave());
+                if (controlHangman.isGanador()){
+
+                        int option = JOptionPane.showConfirmDialog(panelFrase, "Ganaste :D ¿Deseas jugar otra ronda?",
+                                "Ganaste" ,JOptionPane.YES_NO_OPTION);
+
+                        if (option==JOptionPane.YES_OPTION){
+                            // nueva ronda
+                            panelFrase.reset(controlHangman.PintarClaveFrase());
+                            panelHangman.reset();
+                        }else{
+                            if (option==JOptionPane.NO_OPTION){
+                                // Salir
+                                System.exit(0);
+                            }
+                        }
+                }
+            }
+        }
     }
 }

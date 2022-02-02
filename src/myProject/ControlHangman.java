@@ -39,7 +39,7 @@ public class ControlHangman {
         if (index!=-1){
             while (index>-1){
                 reemplazarLetra(index,letra);
-                index =frase.indexOf(index+1,letra);
+                index =frase.indexOf(letra,index+1);
             }
         }else{
             fallo=true;
@@ -55,7 +55,7 @@ public class ControlHangman {
         clave = String.copyValueOf(arrayClave);
     }
 
-    public boolean isGananador() {
+    public boolean isGanador() {
         ganar = (clave.indexOf('_')==-1)?true:false;
         return ganar;
     }
