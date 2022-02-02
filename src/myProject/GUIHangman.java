@@ -44,7 +44,7 @@ public class GUIHangman extends JFrame {
         controlHangman = new ControlHangman();
         escucha = new Escucha();
         //Set up JComponents
-        headerProject = new Header("Usa el teclado para adivinar la palabra", Color.BLACK);
+        headerProject = new Header("Ahorcado versión películas MARVEL", Color.BLACK);
 
         this.add(headerProject,BorderLayout.NORTH); //Change this line if you change JFrame Container's Layout
 
