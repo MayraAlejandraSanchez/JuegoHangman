@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class PanelFrase extends JPanel {
     public static final int WIDTH = 370;
-    public static final int HEIGHT = 370;
+    public static final int HEIGHT = 200;
 
     private String clave, letrasMalas, errores;
 
