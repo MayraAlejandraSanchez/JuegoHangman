@@ -79,5 +79,5 @@ public class ControlHangman {
     public boolean isFallo() {
         return fallo;
     }
-    
+
 }

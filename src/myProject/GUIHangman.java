@@ -4,24 +4,24 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * This class is used for ...
- * @autor Paola-J Rodriguez-C paola.rodriguez@correounivalle.edu.co
- * @version v.1.0.0 date:21/11/2021
+ *
+ * @autor Mayra Alejandra Sanchez 204006 mayra.alejandra.sanchez@correounivalle.edu.co
+ * @version v.1.0.0 date:27/02/2022
  */
-public class GUI extends JFrame {
+public class GUIHangman extends JFrame {
 
     private Header headerProject;
 
     /**
      * Constructor of GUI class
      */
-    public GUI(){
+    public GUIHangman(){
         initGUI();
 
         //Default JFrame configuration
-        this.setTitle("The Title app");
-        this.setSize(200,100);
-        //this.pack();
+        this.setTitle("Hangman app");
+        //this.setSize(200,100);
+        this.pack();
         this.setResizable(true);
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -36,7 +36,7 @@ public class GUI extends JFrame {
         //Set up JFrame Container's Layout
         //Create Listener Object and Control Object
         //Set up JComponents
-        headerProject = new Header("Header ...", Color.BLACK);
+        headerProject = new Header("Usa el teclado para adivinar la palabra", Color.BLACK);
 
         this.add(headerProject,BorderLayout.NORTH); //Change this line if you change JFrame Container's Layout
     }
@@ -48,7 +48,7 @@ public class GUI extends JFrame {
      */
     public static void main(String[] args){
         EventQueue.invokeLater(() -> {
-            GUI miProjectGUI = new GUI();
+            GUIHangman miProjectGUI = new GUIHangman();
         });
     }
 
